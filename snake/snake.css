@@ -1,0 +1,21 @@
+body{
+    position: relative
+}
+
+#map{
+    positon: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-style: solid;
+    border-width: 1px;
+    height: 500px;
+    width: 900px;
+    margin: auto;
+}
+
+.snake{
+
+}
+
+.blank{
+
+}
