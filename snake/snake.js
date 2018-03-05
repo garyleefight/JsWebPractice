@@ -1,7 +1,8 @@
-var mapHeight = 900;
-var mapWidth = 900;
-var spanHeight = 45;
-var spanWidth = 45;
+var mapHeight = 600;
+var mapWidth = 400;
+var spanHeight = 40;
+var spanWidth = 40;
+var snakeInitLength = 3;
 var blankList = [];
 var snakeList = [];
 var mapW = mapWidth / spanWidth;
@@ -12,31 +13,32 @@ var dir={
     dir_up: 3,
     dir_down: 4
 };
-var curDir = 4;
+var curDir = 2;
 
 window.onload = function(){
     var map = document.getElementById('map');
     initial(map);
+    genrateFruit();
     setInterval(logic, 400);
     document.addEventListener('keydown', event => {
         switch(event.keyCode){
             case 37:
-                if(curDir != 1){
+                if(curDir != 1 && curDir != 2){
                     curDir = dir.dir_left;
                 }
                 break;
             case 39:
-                if(curDir != 2){
+                if(curDir != 2 && curDir != 1){
                     curDir = dir.dir_right;
                 }
                 break;
             case 38:
-                if(curDir != 3){
+                if(curDir != 3 && curDir != 4){
                     curDir = dir.dir_up;
                 }
                 break;
             case 40:
-                if(curDir != 4){
+                if(curDir != 4 && curDir != 3){
                     curDir = dir.dir_down;
                 }
                 break;
@@ -55,16 +57,17 @@ function initial(map){
         tempSpan.style.width = spanWidth + 'px';
         tempSpan.style.height = spanHeight + 'px';
         tempSpan.id = i;
+        if(i<=snakeInitLength){
+            tempSpan.className = 'snake';
+            snakeList.push(tempSpan);
+        }else{
+        blankList.push(tempSpan);
+        }
         map.appendChild(tempSpan);
     }
 }
 
 function logic(){
-    if(snakeList.length == 0){
-        temp = document.getElementById('1');
-        temp.className = 'snake';
-        snakeList.push(temp);
-    }else{
         snakeHead = parseInt(snakeList[snakeList.length - 1].id);
         switch(curDir){
             case 1:
@@ -85,19 +88,46 @@ function logic(){
                 if(snakeHead - mapW <= 0){
                     tempSpan = document.getElementById(snakeHead + (mapH - 1)*mapW);
                 }else{
-                tempSpan = document.getElementById(snakeHead - mapH);
+                tempSpan = document.getElementById(snakeHead - mapW);
                 }
                 break;
             case 4:
                 if(snakeHead + mapW > mapW*mapH){
                     tempSpan = document.getElementById(snakeHead - (mapH - 1)*mapW);
                 }else{
-                tempSpan = document.getElementById(snakeHead + mapH);
+                tempSpan = document.getElementById(snakeHead + mapW);
                 }
-        }
-        tempSpan.className = 'snake';
-                snakeList.push(tempSpan);
+        }       
+                if(collide(tempSpan) < 0){
                 firstNode = snakeList.shift();
                 firstNode.className = '';
+                blankList.push(firstNode);
+                }
+                blankList.splice(findElementByIndex(tempSpan),1);
+                tempSpan.className = 'snake';
+                snakeList.push(tempSpan);
+}
+
+function genrateFruit(){
+    fruit = blankList[Math.round(Math.random()*blankList.length)];
+    fruit.className = 'fruit';
+}
+
+function collide(node){
+   if(node.className == 'fruit'){ 
+        genrateFruit();
+        return 1;
+   }else if(node.className == 'snake'){
+        alert('Game End');
+        location.reload();
+   }
+    return -1;
+}
+
+function findElementByIndex(node){
+    for(i=0;i<blankList.length;i++){
+        if(node.id == blankList[i].id){
+            return i;
+        }
     }
 }
