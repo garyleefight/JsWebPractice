@@ -24,7 +24,7 @@ function init(){
         newCheckbox.id = 'c' + i;
         newLabel = document.createElement('label');
         newLabel.appendChild(newCheckbox);
-        newLabel.appendChild(document.createTextNode('box'+i));
+        newLabel.appendChild(document.createTextNode('  box'+i));
         wrapper.appendChild(newLabel);
         container.appendChild(wrapper);
     }
