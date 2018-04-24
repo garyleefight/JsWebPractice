@@ -9,14 +9,9 @@
   "author": "gary li",
   "license": "ISC",
   "dependencies": {
-<<<<<<< HEAD
-    "react": "^16.3.1",
-    "react-dom": "^16.3.1"
-=======
     "npm": "^5.8.0",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
     "youtube-api-search": "0.0.5"
->>>>>>> add youtube
   }
 }
