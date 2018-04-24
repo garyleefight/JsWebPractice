@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import SearchBar from './components/search_bar';
-
-class App extends React.Component {
-  render () {
-    return (
-      <div>
-        <SearchBar />
-      </div>
-    );
-  }
-}
-
-const access_key = 'AIzaSyAQYwgJULiSfQqa5iIdm7hJKArjIVTUhng';
-=======
 import React,{Component} from 'react';
 import SearchBar from './components/search_bar';
 import Youtube from 'youtube-api-search';
@@ -48,6 +32,5 @@ class App extends Component {
 
 
 
->>>>>>> add youtube
 
 export default App;
